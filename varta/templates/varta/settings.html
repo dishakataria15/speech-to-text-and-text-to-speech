@@ -1,0 +1,194 @@
+<!-- Settings Page -->
+<div id="settings-page" class="dashboard-page hidden h-full flex flex-col overflow-y-auto">
+  <div class="dashboard-card flex-1 flex flex-col">
+    <!-- Header -->
+    <div class="p-6 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900">Settings</h2>
+      <p class="text-gray-600">Customize your Varta experience</p>
+    </div>
+
+    <!-- Settings Sections -->
+    <div class="p-6 space-y-8 flex-1 overflow-y-auto">
+      
+      <!-- Language Settings -->
+      <div class="space-y-3">
+        <h3 class="font-semibold text-gray-800">Language Settings</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Source Language</label>
+            <select id="settings-source-language" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+              <option value="en">English</option>
+              <option value="hi">Hindi</option>
+              <option value="bn">Bengali</option>
+              <option value="ta">Tamil</option>
+              <option value="te">Telugu</option>
+              <option value="mr">Marathi</option>
+              <option value="gu">Gujarati</option>
+              <option value="kn">Kannada</option>
+              <option value="ml">Malayalam</option>
+              <option value="pa">Punjabi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Target Language</label>
+            <select id="settings-target-language" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+              <option value="en">English</option>
+              <option value="hi">Hindi</option>
+              <option value="bn">Bengali</option>
+              <option value="ta">Tamil</option>
+              <option value="te">Telugu</option>
+              <option value="mr">Marathi</option>
+              <option value="gu">Gujarati</option>
+              <option value="kn">Kannada</option>
+              <option value="ml">Malayalam</option>
+              <option value="pa">Punjabi</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Speech Settings -->
+      <div class="space-y-3">
+        <h3 class="font-semibold text-gray-800">Speech Settings</h3>
+        <div class="flex items-center gap-4">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="toggle-auto-speak" class="h-5 w-5 accent-primary-500" checked>
+            <span class="text-gray-700">Auto Speak Translations</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <span class="text-gray-700">Speech Rate:</span>
+            <input type="range" id="speech-rate" min="0.5" max="2" step="0.1" value="1" class="w-48">
+          </label>
+        </div>
+      </div>
+
+      <!-- Display Settings -->
+      <div class="space-y-3">
+        <h3 class="font-semibold text-gray-800">Display Settings</h3>
+        <div class="flex items-center gap-4">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="toggle-show-original" class="h-5 w-5 accent-primary-500" checked>
+            <span class="text-gray-700">Show Original + Translated Text</span>
+          </label>
+        </div>
+        <div class="flex items-center gap-4">
+          <label class="block text-gray-700">Font Size</label>
+          <select id="font-size" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <option value="text-sm">Small</option>
+            <option value="text-base" selected>Medium</option>
+            <option value="text-lg">Large</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="space-y-3">
+        <h3 class="font-semibold text-gray-800">Notifications</h3>
+        <div class="flex items-center gap-4">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="toggle-message-alerts" class="h-5 w-5 accent-primary-500" checked>
+            <span class="text-gray-700">Message Alerts</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="toggle-speech-alerts" class="h-5 w-5 accent-primary-500" checked>
+            <span class="text-gray-700">Speech Alerts</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Privacy -->
+      <div class="space-y-3">
+        <h3 class="font-semibold text-gray-800">Privacy & Security</h3>
+        <button id="clear-history" class="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 shadow">Clear Chat History</button>
+      </div>
+
+      <!-- About -->
+      <div class="space-y-3">
+        <h3 class="font-semibold text-gray-800">About</h3>
+        <p class="text-gray-600">Varta - Real-time multilingual conversation app.</p>
+        <p class="text-gray-500 text-sm">Version 1.0.0</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // State updates for Settings Page
+  const state = {
+    autoSpeak: true,
+    speechRate: 1.0,
+    showOriginal: true,
+    fontSize: 'text-base',
+    messageAlerts: true,
+    speechAlerts: true,
+    sourceLanguage: 'en',
+    targetLanguage: 'hi'
+  };
+
+  // DOM elements
+  const settingsElements = {
+    autoSpeak: document.getElementById('toggle-auto-speak'),
+    speechRate: document.getElementById('speech-rate'),
+    showOriginal: document.getElementById('toggle-show-original'),
+    fontSize: document.getElementById('font-size'),
+    messageAlerts: document.getElementById('toggle-message-alerts'),
+    speechAlerts: document.getElementById('toggle-speech-alerts'),
+    sourceLanguage: document.getElementById('settings-source-language'),
+    targetLanguage: document.getElementById('settings-target-language'),
+    clearHistory: document.getElementById('clear-history')
+  };
+
+  // Event Listeners
+  settingsElements.autoSpeak.addEventListener('change', (e) => {
+    state.autoSpeak = e.target.checked;
+  });
+
+  settingsElements.speechRate.addEventListener('input', (e) => {
+    state.speechRate = parseFloat(e.target.value);
+  });
+
+  settingsElements.showOriginal.addEventListener('change', (e) => {
+    state.showOriginal = e.target.checked;
+  });
+
+  settingsElements.fontSize.addEventListener('change', (e) => {
+    state.fontSize = e.target.value;
+    document.querySelectorAll('.dashboard-page p, .dashboard-page span').forEach(el => {
+      el.classList.remove('text-sm','text-base','text-lg');
+      el.classList.add(state.fontSize);
+    });
+  });
+
+  settingsElements.messageAlerts.addEventListener('change', (e) => {
+    state.messageAlerts = e.target.checked;
+  });
+
+  settingsElements.speechAlerts.addEventListener('change', (e) => {
+    state.speechAlerts = e.target.checked;
+  });
+
+  settingsElements.sourceLanguage.addEventListener('change', (e) => {
+    state.sourceLanguage = e.target.value;
+    // Update app-wide source language
+    if (window.languageCodeMap && window.recognition) {
+      window.recognition.lang = window.languageCodeMap[state.sourceLanguage];
+      if (window.state.isListening) window.recognition.stop();
+    }
+  });
+
+  settingsElements.targetLanguage.addEventListener('change', (e) => {
+    state.targetLanguage = e.target.value;
+    // Update translation UI
+    if (window.updateTranslationUI) window.updateTranslationUI();
+  });
+
+  settingsElements.clearHistory.addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear all chat history?')) {
+      if (window.state && window.state.messages) {
+        window.state.messages = [];
+        if (window.renderMessages) window.renderMessages();
+      }
+    }
+  });
+</script>
