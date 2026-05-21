@@ -36,8 +36,6 @@ speech-to-text-and-text-to-speech/
 │
 ├── Nagish/
 ├── varta/
-├── static/
-├── templates/
 ├── manage.py
 ├── README.md
 ├── requirements.txt
